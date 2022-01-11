@@ -1,0 +1,339 @@
+body{
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0 0;
+    font-family: 'Roboto';
+}
+
+.topbar{
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    width: 100%;
+    background-color: rgb(35, 59, 110);
+    position: relative;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid white;
+}
+
+.topbar .logo{
+    display: flex;
+    height: 100%;
+    width: 100px;
+    align-items: center;
+    font-family: "Goudy Old Style";
+    font-size: 30px;
+    padding-left: 25px;
+    color: rgb(255, 255, 255);
+}
+
+.topbar .topnav-tools{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.topbar .topnav-tools .topnav-tool{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-right: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+.topbar .topnav-tools div :hover{
+    color: rgb(1, 171, 250);
+}
+
+.topbar .topnav-tools .topnav-tool i{
+    font-size: 20px;
+    margin-right: 5px;
+}
+.topbar .topnav-tools .topnav-tool span{
+    font-size: 13px;
+    font-family: Arial;
+}
+
+
+
+.search-mainnav-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgb(35, 67, 136);
+    
+}
+
+
+.search{
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #2E5365;
+    box-sizing: border-box;
+    height: 35px;
+    padding: 8.5px 93px 8.5px 11px;
+    position: relative;
+    width: 50%;
+    z-index: 46;
+    margin-top: 20px;
+}
+
+
+.search form{
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.search input{
+    background: transparent none repeat scroll 0 0;
+    border: medium none;
+    color: #323232;
+    height: 100%;
+    line-height: 20px;
+    outline: medium none;
+    width: 100%;
+}
+
+.search button{
+    background: #224262 none repeat scroll 0 0;
+    border: medium none;
+    bottom: -1px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    outline: medium none;
+    outline-offset: 0;
+    padding: 0 10px;
+    position: absolute;
+    right: 0;
+    top: -1px;
+}
+
+
+.mainnav{
+    width: 80%;
+    background-color: rgb(35, 67, 136);
+    height: 50px;
+}
+
+.mainnav ul {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style: outside none none;
+    padding: 0 0;
+    margin: 0 0;
+}
+
+.mainnav li a{
+    color: rgb(223, 130, 130);
+    cursor: pointer;
+    display: block;
+    font: 300 14px/24px;
+    padding: 10px 15px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 22px;
+    margin: 0 15px;
+}
+
+.mainnav li :hover{
+    background-color: rgb(223, 130, 130);
+    color: rgb(35, 67, 136);
+}
+
+
+
+.container{
+    display: flex;
+    height: 100%;
+}
+
+.sidenav{
+    /* height: 100%; */
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color: rgb(68, 105, 185);
+    position: relative;
+    /* top: 0;
+    left: 0; */
+    overflow-x: hidden;
+}
+
+
+.sidenav .nav-link{
+    display: flex;
+    align-items: center;
+    padding-top: 0.75rem;
+    padding-left: 1rem;
+    padding-bottom: 0.75rem;
+    font-size: 20px;
+    position: relative;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid white;
+}
+
+
+.sidenav .nav-link:hover{
+    background-color: white;
+    color:rgb(48, 80, 150);
+}
+
+
+
+.container .content-container{
+    width: 100%;
+    margin: 10px 10px;
+}
+
+
+
+.container .content-container .filtriranje-sortiranje{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+
+.container .content-container .filtriranje-sortiranje .filtriranje input{
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid gray;
+    color: #323232;
+    line-height: 10px;
+    outline: medium none;
+    text-align: end;
+}
+
+
+.container .content-container .filtriranje-sortiranje .sortiranje label{
+    font-size: 18px;
+}
+
+.container .content-container .filtriranje-sortiranje .sortiranje select{
+    background-color: rgb(34, 69, 145);
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
+.container .content-container .proizvodi-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+
+
+.container .content-container .proizvodi-container .proizvodi-container-hearder{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 30px;
+}
+
+
+.container .content-container .proizvodi-container .proizvodi-container-hearder .proizvodi-container-hearder-item{
+    height: 100%;
+    min-width: 10px;
+    background-color: rgb(223, 130, 130);
+}
+
+.container .content-container .proizvodi-container .proizvodi-container-hearder .proizvodi-container-hearder-content{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(147, 172, 226);
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+
+.container .content-container .proizvodi-container-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    /* margin-top: 10px; */
+    background-color: rgb(235, 235, 235);
+}
+
+.container .content-container .proizvodi-container-content .proizvod{
+    flex-basis: 220px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    padding: 10px 10px;
+    margin: 10px 30px;
+    background-color: white;
+}
+
+
+
+.container .content-container .proizvodi-container-content .proizvod img{
+    width: 240px;
+}
+
+.container .content-container .proizvodi-container-content .proizvod img :hover{
+    cursor: pointer;
+}
+
+.container .content-container .proizvodi-container-content .proizvod .ime-proizvod{
+    font-size: 20px;
+    text-align: center;
+    color: rgb(7, 37, 102);
+}
+
+
+.container .content-container .proizvodi-container-content .proizvod .cena-proizvod{
+    font-size: 35px;
+    color: rgb(224, 44, 44);
+    text-align: center;
+}
+
+.container .content-container .proizvodi-container-content .proizvod a{
+    width: 90%;
+    font-size: 1.3rem;
+    border-top: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    padding-top: 10px;
+}
+
+
+
+.container .content-container .proizvodi-container-content .proizvod a i{
+    margin-right: 10px;
+}
