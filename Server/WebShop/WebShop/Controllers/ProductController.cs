@@ -62,6 +62,47 @@ namespace WebShop.Controllers
             return Ok(products);
         }
 
+        [HttpGet]
+        [Route("VratiProdukteSaViseTagova/{tagsList}")]
+        public async Task<IActionResult> VratiProdukteSaViseTagova(string tagsList)
+        {
+            IResultCursor cursor;
+            var products = new List<Product>() { };
+            IAsyncSession session = _driver.AsyncSession();
+
+            string userIP = GetUserIP().ToString();
+            _redis.AddItemToSet("site_visitors", userIP);
+
+            string[] tags = tagsList.Split(" ");
+            for (int i = 0; i < tags.Length; i++)
+            {
+                string tag = tags[i];
+                if (i > 0 && !tag.Any(char.IsLetter)) // Ako nema bar jednog slova onda su u pitanju nevalidni znaci ili blanko znaci koji uticu na pretragu
+                    continue;
+                _redis.AddItemToSet($"visitor_{userIP}", tag);
+
+                tags[i] = $"(?i).*{tag}.*"; // case-insensitive regex https://community.neo4j.com/t/case-insensitive-query-for-a-user-filter/8793/2
+            }
+            _redis.Expire($"visitor_{userIP}", 86400 * 3); // 3 dana
+
+            try
+            {
+                cursor = await session.RunAsync("WITH $tags AS tagsList " +
+                                                "MATCH (n:Produkt) " +
+                                                $"WHERE any(tg in tagsList WHERE n.Name =~ tg) OR any(tg in n.Tags WHERE any(oneTag in tagsList WHERE tg =~ oneTag)) " +
+                                                $"RETURN n AS produkti LIMIT 50", new { tags });
+
+
+                products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+
+            return Ok(products);
+        }
+
         [HttpPost]
         [Route("DodajProdukt")]
         public async Task<IActionResult> DodajProdukt([FromBody] Product newProduct)
@@ -165,118 +206,5 @@ namespace WebShop.Controllers
             return Ok(productCode);
         }
 
-
-        [HttpGet]
-        [Route("VratiKomentare/{productCode}")]
-        public async Task<IActionResult> VratiKomentare(int productCode)
-        {
-            IResultCursor cursor;
-            IAsyncSession session = _driver.AsyncSession();
-            List<ProductComment> comments = new List<ProductComment>();
-            try
-            {
-                Dictionary<string, object> queryParams = new Dictionary<string, object>()
-                {
-                    { "productcode", productCode },
-                };
-
-                cursor = await session.RunAsync("MATCH (p:Produkt { ProductCode: $productcode }) " +
-                                                "MATCH (c:Comment)-[r:COMMENTED]->(p) " +
-                                                "RETURN c AS comments", queryParams);
-
-                await cursor.ForEachAsync((r) =>
-                {
-                    var comment = r["comments"].As<INode>();
-                    Dictionary<string, object> dict = comment.Properties.ToDictionary(k => k.Key, v => v.Value);
-                    comments.Add(new ProductComment()
-                    {
-                        ProductCode = productCode,
-                        Name = dict["Name"].ToString(),
-                        Email = dict["Email"].ToString(),
-                        Text = dict["Text"].ToString(),
-                        Date = Convert.ToDateTime(dict["Date"]),
-                    });
-                });
-            }
-            finally
-            {
-                await session.CloseAsync();
-            }
-
-            return Ok(comments);
-        }
-
-
-        [HttpPost]
-        [Route("DodajKomentar")]
-        public async Task<IActionResult> DodajProdukt([FromBody] ProductComment comment)
-        {
-            IResultCursor cursor;
-            IAsyncSession session = _driver.AsyncSession();
-            bool successful = false;
-            try
-            {
-                Dictionary<string, object> queryParams = new Dictionary<string, object>()
-                {
-                    { "productcode", comment.ProductCode },
-                    { "name", comment.Name },
-                    { "email", comment.Email },
-                    { "text", comment.Text },
-                    { "date", DateTime.Now },
-                };
-
-                cursor = await session.RunAsync("MATCH (p:Produkt { ProductCode: $productcode }) " +
-                                                "CREATE (c:Comment { Name: $name, Email: $email, Text: $text, Date: $date }) " +
-                                                "CREATE (c)-[:COMMENTED]->(p) " +
-                                                "RETURN c AS comment", queryParams);
-                successful = (await cursor.SingleAsync()).Keys.Contains("comment");
-            }
-            finally
-            {
-                await session.CloseAsync();
-            }
-
-            if (!successful)
-                return BadRequest(new { message = "Doslo je do greske prilikom postavljanja komentara!" });
-
-            return Ok(comment);
-        }
-
-        [HttpDelete]
-        [Route("ObrisiKomentar")]
-        public async Task<IActionResult> ObrisiKomentar([FromBody] ProductComment comment)
-        {
-            IResultCursor cursor;
-            IAsyncSession session = _driver.AsyncSession();
-            bool successful = false;
-            try
-            {
-                Dictionary<string, object> queryParams = new Dictionary<string, object>()
-                {
-                    { "productcode", comment.ProductCode },
-                    { "name", comment.Name },
-                    { "email", comment.Email },
-                    { "text", comment.Text },
-                    { "date", comment.Date },
-                };
-
-                cursor = await session.RunAsync("MATCH (c:Comment { Name: $name, Email: $email, Text: $text, Date: $date })-[r:COMMENTED]-(p:Produkt { ProductCode: $productcode }) " +
-                                                "DELETE r " +
-                                                "DETACH DELETE c " +
-                                                "RETURN count(c) > 0 AS success", queryParams);
-
-                IRecord record = await cursor.SingleAsync();
-                successful = record["success"].As<bool>();
-            }
-            finally
-            {
-                await session.CloseAsync();
-            }
-
-            if (!successful)
-                return BadRequest(new { message = "Doslo je do greske prilikom postavljanja komentara!" });
-
-            return Ok(comment);
-        }
     }
 }
