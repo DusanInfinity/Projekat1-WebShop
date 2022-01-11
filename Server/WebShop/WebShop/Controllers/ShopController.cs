@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using ServiceStack.Redis;
+using System.Net;
 
 namespace WebShop.Controllers
 {
@@ -10,30 +10,26 @@ namespace WebShop.Controllers
     public class ShopController : ControllerBase
     {
         private readonly IDriver _driver;
-
-        public ShopController(IDriver driver)
+        private readonly RedisClient _redis;
+        public ShopController(IDriver driver, RedisClient redisClient)
         {
             _driver = driver;
+            _redis = redisClient;
         }
 
-        [HttpGet]
-        [Route("VratiGodineOsoba")]
-        public async Task<IActionResult> GetPersonsAges()
+        private IPAddress GetUserIP()
         {
-            IResultCursor cursor;
-            var ages = new List<int>() { 1 };
-            IAsyncSession session = _driver.AsyncSession();
-            try
-            {
-                cursor = await session.RunAsync(@"MATCH (n:Osoba) RETURN n.godine as godine LIMIT 10");
-                ages = await cursor.ToListAsync(record => record["godine"].As<int>());
-            }
-            finally
-            {
-                await session.CloseAsync();
-            }
+            return HttpContext != null ? HttpContext.Connection.RemoteIpAddress : null;
+        }
 
-            return Ok(ages);
+        [HttpPut]
+        [Route("PratiStanjeProizvoda/{productCode}/{email}")]
+        public IActionResult PratiStanjeProizvoda(int productCode, string email)
+        {
+            _redis.AddItemToSet($"Followers_{productCode}", email);
+            _redis.Expire($"Followers_{productCode}", 86400 * 10); // 10 dana
+
+            return Ok(productCode);
         }
     }
 }

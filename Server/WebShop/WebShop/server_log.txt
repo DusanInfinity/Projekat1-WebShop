@@ -1,0 +1,2 @@
+[11-01-2022 12:17:10.962] | INFO | Emailovi za produkt 1: 
+[11-01-2022 12:18:46.097] | INFO | Emailovi za produkt 1: dusan@gmail.com

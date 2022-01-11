@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
 using Newtonsoft.Json;
+using ServiceStack.Redis;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using WebShop.Data;
 using WebShop.Models;
 
 namespace WebShop.Controllers
@@ -12,10 +17,19 @@ namespace WebShop.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IDriver _driver;
-        public ProductController(IDriver driver)
+        private readonly RedisClient _redis;
+        private static readonly Logging Log = new Logging("ProductController");
+        public ProductController(IDriver driver, RedisClient redisClient)
         {
             _driver = driver;
+            _redis = redisClient;
         }
+
+        private IPAddress GetUserIP()
+        {
+            return HttpContext != null ? HttpContext.Connection.RemoteIpAddress : null;
+        }
+
 
         [HttpGet]
         [Route("VratiProdukte/{tag}")]
@@ -24,6 +38,11 @@ namespace WebShop.Controllers
             IResultCursor cursor;
             var products = new List<Product>() { };
             IAsyncSession session = _driver.AsyncSession();
+
+            string userIP = GetUserIP().ToString();
+            _redis.AddItemToSet("site_visitors", userIP);
+            _redis.AddItemToSet($"visitor_{userIP}", tag);
+            _redis.Expire($"visitor_{userIP}", 86400 * 3); // 3 dana
 
             tag = $"(?i).*{tag}.*"; // case-insensitive regex https://community.neo4j.com/t/case-insensitive-query-for-a-user-filter/8793/2
             try
@@ -94,6 +113,23 @@ namespace WebShop.Controllers
             IAsyncSession session = _driver.AsyncSession();
             try
             {
+                cursor = await session.RunAsync("MATCH (n:Produkt { ProductCode: $ProductCode }) RETURN n AS produkt", new { newProduct.ProductCode });
+                product = await cursor.SingleAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkt"].As<INode>().Properties)));
+
+                if (product.Quantity == 0 && newProduct.Quantity > 0)
+                {
+                    List<string> emails = _redis.GetAllItemsFromSet($"Followers_{newProduct.ProductCode}").ToList();
+                    if (emails.Count > 0)
+                    {
+                        product.InformFollowersAboutQuantity(newProduct.Quantity, emails);
+
+                        Log.WriteLine($"Emailovi za produkt {newProduct.ProductCode}: {String.Join(", ", emails)}");
+                    }
+                }
+
+
+
+
                 cursor = await session.RunAsync("MATCH (n:Produkt { ProductCode: $ProductCode }) SET" +
                                                 $" n.Name = $Name," +
                                                 $" n.Price = $Price," +
