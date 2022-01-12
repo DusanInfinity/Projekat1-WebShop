@@ -15,6 +15,7 @@ let puna_lista_proizvoda = [
         id: 1,
         name: "Poco x3 pro",
         price: "112000 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -22,6 +23,7 @@ let puna_lista_proizvoda = [
         id: 2,
         name: "Nokia",
         price: "22000 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -29,6 +31,7 @@ let puna_lista_proizvoda = [
         id: 3,
         name: "Samsung galaxy S10 Ultra",
         price: "1 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -36,6 +39,7 @@ let puna_lista_proizvoda = [
         id: 4,
         name: "Huawei",
         price: "12312 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     }
@@ -59,7 +63,7 @@ function prikaziProizvode() {
         
         let kontejner = document.querySelector(".proizvodi-container-content");
         lista_proizvoda.forEach(el => {
-            let proizvod = new Proizvod(el.id, el.name, el.price, el.description, el.image);
+            let proizvod = new Proizvod(el.id, el.name, el.price, el.description, el.quantity, el.image);
             proizvod.drawSelf(kontejner);
         });
     }
@@ -107,6 +111,7 @@ function prikaziProizvode() {
                 id: 1,
                 name: "Laptop",
                 price: "112000 RSD",
+                quantity: 4,
                 description: "deskripcija",
                 image: null
             },
@@ -114,6 +119,7 @@ function prikaziProizvode() {
                 id: 2,
                 name: "TopLap",
                 price: "22000 RSD",
+                quantity: 4,
                 description: "deskripcija",
                 image: null
             },
@@ -121,6 +127,7 @@ function prikaziProizvode() {
                 id: 1,
                 name: "Samsung galaxy S10 Ultra",
                 price: "132000 RSD",
+                quantity: 4,
                 description: "deskripcija",
                 image: null
             },
@@ -128,6 +135,7 @@ function prikaziProizvode() {
                 id: 1,
                 name: "laptop",
                 price: "1000 RSD",
+                quantity: 4,
                 description: "deskripcija",
                 image: null
             },
@@ -135,6 +143,7 @@ function prikaziProizvode() {
                 id: 1,
                 name: "laptop",
                 price: "1000 RSD",
+                quantity: 4,
                 description: "deskripcija",
                 image: null
             }
@@ -143,7 +152,7 @@ function prikaziProizvode() {
         if (kontejner != null) {
             preporuceniProizvodi.forEach((el, index) => {
                 if (index < 5) {
-                    let proizvod = new Proizvod(el.id, el.name, el.price, el.description, el.image);
+                    let proizvod = new Proizvod(el.id, el.name, el.price, el.description, el.quantity, el.image);
                     proizvod.drawSelf(div_proizvodi_container_content);
                 }
             });

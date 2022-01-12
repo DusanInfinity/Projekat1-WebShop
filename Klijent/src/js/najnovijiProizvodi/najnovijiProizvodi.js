@@ -11,6 +11,7 @@ let najprodavanijiProizvodi = [
         id: 1,
         name: "Laptop",
         price: "112000 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -18,6 +19,7 @@ let najprodavanijiProizvodi = [
         id: 2,
         name: "TopLap",
         price: "22000 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -25,6 +27,7 @@ let najprodavanijiProizvodi = [
         id: 1,
         name: "Samsung galaxy S10 Ultra",
         price: "132000 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -32,6 +35,7 @@ let najprodavanijiProizvodi = [
         id: 1,
         name: "laptop",
         price: "1000 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -39,6 +43,7 @@ let najprodavanijiProizvodi = [
         id: 1,
         name: "laptop",
         price: "1000 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -46,6 +51,7 @@ let najprodavanijiProizvodi = [
         id: 1,
         name: "laptop",
         price: "1000 RSD",
+        quantity: 4,
         description: "deskripcija",
         image: null
     },
@@ -54,7 +60,7 @@ let najprodavanijiProizvodi = [
 
 if (kontejner != null){
     najprodavanijiProizvodi.forEach(el => {
-        let proizvod = new Proizvod(el.id, el.name, el.price, el.description, el.image);
+        let proizvod = new Proizvod(el.id, el.name, el.price, el.description, el.quantity, el.image);
         proizvod.drawSelf(kontejner);
     });
 }

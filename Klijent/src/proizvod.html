@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebShop</title>
+    <link rel="stylesheet" href="/css/stil.css">
+    <link rel="stylesheet" href="/css/proizvod.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;1,100&display=swap" rel="stylesheet"> 
+
+</head>
+<body>
+    
+    <nav class="topbar">
+        <div class="logo">
+            WebShop
+        </div>
+        <div class="topnav-tools">
+            <div>
+                <a class="topnav-tool" href="kontakt.html">
+                    <i class="fa fa-home"></i>
+                    <span>Kontakt</span>
+                </a>
+            </div>
+            <div>
+                <a class="topnav-tool" href="login.html">
+                    <i class="fa fa-user"></i>
+                    <span>Admin Log in</span>
+                </a>
+            </div>
+            <div>    
+                <a class="topnav-tool" href="korpa.html">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>Korpa</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="search-mainnav-container">
+        <div class="search">
+            <input type="text" id="pretragaInput" placeholder="Pretraži sajt...">
+            <button class="button-search">
+                <i class="fa fa-search"></i>
+                Pretraži
+            </button>
+        </div>
+        
+        <div class="mainnav">
+            <ul>
+                <li>
+                    <a href="/">Početna stranica</a>
+                </li>
+                <li>
+                    <a href="/najnovijiproizvodi.html">Najnoviji</a>
+                </li>
+                <li>    
+                    <a href="/najprodavanijiproizvodi.html">Najprodavaniji</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <nav class="sidenav">
+            <!-- <a class="nav-link" href="stranica.html">
+                Telefoni
+            </a> -->
+        </nav>
+
+        <div class="content-container-proizvod">
+            <div class="content-container-proizvod-div">
+
+            </div>
+
+            <div class="content-container-slicni-proizvodi">
+                <div class="proizvodi-container-hearder">
+                    <div class="proizvodi-container-hearder-item"></div>
+                    <div class="proizvodi-container-hearder-content">
+                        Slični proizvodi
+                    </div>
+                </div>
+
+                <div class="proizvodi-container-content slicni-proizvodi">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+
+    </div>
+
+    <script src="./js/index/dodajKategorije.js"></script>
+    <script src="./js/index/pretraga.js"></script>
+    <script src="./js/proizvod/proizvodStranica.js" type="module"></script>
+</body>
+</html>

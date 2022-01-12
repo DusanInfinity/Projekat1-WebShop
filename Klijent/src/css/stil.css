@@ -4,7 +4,7 @@ body{
     flex-direction: column;
     position: relative;
     margin: 0 0;
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
 }
 
 .topbar{
@@ -278,7 +278,6 @@ body{
     justify-content: space-around;
     flex-wrap: wrap;
     width: 100%;
-    /* margin-top: 10px; */
     background-color: rgb(235, 235, 235);
 }
 
@@ -337,3 +336,8 @@ body{
 .container .content-container .proizvodi-container-content .proizvod a i{
     margin-right: 10px;
 }
+
+
+
+
+

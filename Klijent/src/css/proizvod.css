@@ -1,0 +1,227 @@
+.content-container-proizvod{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+.content-container-proizvod .content-container-proizvod-div{ 
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.proizvod-profil{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.proizvod-profil img{
+    width: 500px;
+    height: fit-content;
+}
+
+.proizvod-profil .podaci-proizvod-profil{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 50px 20px;
+    font-size: 25px;
+    border-top: 1px solid rgb(190, 190, 190);
+    border-bottom: 1px solid rgb(190, 190, 190);
+    height: min-content;
+}
+
+
+.proizvod-profil .podaci-proizvod-profil .ime-proizvod-profil{
+    padding: 10px 0;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.proizvod-profil .podaci-proizvod-profil .cena-proizvod-profil{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    color: rgb(250, 75, 75);
+    padding: 10px 0;
+    font-weight: bolder;
+}
+
+.proizvod-profil .podaci-proizvod-profil .kolicina-u-prodavnici{
+    font-size: 25px;
+}
+
+.proizvod-profil .podaci-proizvod-profil .button-dodaj-u-korpu{
+    color: white;
+    background: #23982d;
+    width: 50%;
+    border-radius: 4px;
+    height: 60px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 30px 0;
+}
+.proizvod-profil .podaci-proizvod-profil .button-dodaj-u-korpu i{
+    padding-left: 5px;
+    font-size: 25px;
+}
+
+.proizvod-profil .podaci-proizvod-profil .deskripcija-proizvod-profil{
+    font-size: 20px;
+}
+
+
+
+
+.email-div-proizvod{
+    line-height: 15px;
+    margin: 15px 0;
+}
+
+
+.email-div-proizvod .email-labela-proizvod{
+    font-size: 14px;
+}
+
+
+.email-div-proizvod .email-content-proizvod{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.email-div-proizvod .email-content-proizvod .input-email-prozivod{
+    width: 300px;
+    outline: none;
+    padding: 3px 10px;
+    margin-right: 15px;
+}
+
+.email-div-proizvod .email-content-proizvod .button-email-proizvod{
+    width: 100px;
+    background: #23982d;
+    color: white;
+    padding: 5px 0;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+
+.container .content-container-proizvod .content-container-slicni-proizvodi{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+}
+
+
+
+.container .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 30px;
+}
+
+.container .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder .proizvodi-container-hearder-item{
+    height: 100%;
+    min-width: 10px;
+    background-color: rgb(223, 130, 130);
+}
+
+.container .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder .proizvodi-container-hearder-content{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(147, 172, 226);
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+
+
+
+.container .content-container-proizvod .proizvodi-container-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(235, 235, 235);
+}
+
+
+
+
+
+
+
+.container .content-container-proizvod .proizvodi-container-content .proizvod{
+    flex-basis: 220px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    padding: 10px 10px;
+    margin: 10px 30px;
+    background-color: white;
+}
+
+
+
+.container .content-container-proizvod .proizvodi-container-content .proizvod img{
+    width: 240px;
+}
+
+.container .content-container-proizvod .proizvodi-container-content .proizvod img :hover{
+    cursor: pointer;
+}
+
+.container .content-container-proizvod .proizvodi-container-content .proizvod .ime-proizvod{
+    font-size: 20px;
+    text-align: center;
+    color: rgb(7, 37, 102);
+}
+
+
+.container .content-container-proizvod .proizvodi-container-content .proizvod .cena-proizvod{
+    font-size: 35px;
+    color: rgb(224, 44, 44);
+    text-align: center;
+}
+
+.container .content-container-proizvod .proizvodi-container-content .proizvod a{
+    width: 90%;
+    font-size: 1.3rem;
+    border-top: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    padding-top: 10px;
+}
+
+
+
+.container .content-container-proizvod .proizvodi-container-content .proizvod a i{
+    margin-right: 10px;
+}
+
+
