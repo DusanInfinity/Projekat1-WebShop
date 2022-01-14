@@ -1,0 +1,6 @@
+[14-01-2022 21:46:17.113] | ProductController.VratiPodatkeProdukta MoveNext
+The result is empty.
+   at Neo4j.Driver.ResultCursorExtensions.SingleAsync[T](IResultCursor result, Func`2 operation)
+   at WebShop.Controllers.ProductController.VratiPodatkeProdukta(Int32 productCode) in E:\Moji podaci\FAX podaci\IV godina\VII semestar\Napredne baze podataka\Projekat 1 - WebShop\Server\WebShop\WebShop\Controllers\ProductController.cs:line 52
+Dodatan komentar: ProductCode_6
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

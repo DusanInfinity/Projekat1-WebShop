@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebShop.Data;
 using WebShop.Models;
 
 namespace WebShop.Controllers
@@ -12,6 +13,7 @@ namespace WebShop.Controllers
     [Route("[controller]")]
     public class CommentsController : ControllerBase
     {
+        private static readonly Logging Log = new Logging("CommentsController");
         private readonly IDriver _driver;
         public CommentsController(IDriver driver)
         {
@@ -62,7 +64,7 @@ namespace WebShop.Controllers
 
         [HttpPost]
         [Route("DodajKomentar")]
-        public async Task<IActionResult> DodajProdukt([FromBody] ProductComment comment)
+        public async Task<IActionResult> DodajKomentar([FromBody] ProductComment comment)
         {
             IResultCursor cursor;
             IAsyncSession session = _driver.AsyncSession();
@@ -75,7 +77,7 @@ namespace WebShop.Controllers
                     { "name", comment.Name },
                     { "email", comment.Email },
                     { "text", comment.Text },
-                    { "date", DateTime.Now },
+                    { "date", comment.Date.ToString() },
                 };
 
                 cursor = await session.RunAsync("MATCH (p:Produkt { ProductCode: $productcode }) " +
@@ -96,8 +98,8 @@ namespace WebShop.Controllers
         }
 
         [HttpDelete]
-        [Route("ObrisiKomentar")]
-        public async Task<IActionResult> ObrisiKomentar([FromBody] ProductComment comment)
+        [Route("ObrisiKomentar/{productCode}/{name}/{date}")]
+        public async Task<IActionResult> ObrisiKomentar(int productCode, string name, DateTime date)
         {
             IResultCursor cursor;
             IAsyncSession session = _driver.AsyncSession();
@@ -106,14 +108,12 @@ namespace WebShop.Controllers
             {
                 Dictionary<string, object> queryParams = new Dictionary<string, object>()
                 {
-                    { "productcode", comment.ProductCode },
-                    { "name", comment.Name },
-                    { "email", comment.Email },
-                    { "text", comment.Text },
-                    { "date", comment.Date },
+                    { "productcode", productCode },
+                    { "name", name },
+                    { "date", date.ToString() },
                 };
 
-                cursor = await session.RunAsync("MATCH (c:Comment { Name: $name, Email: $email, Text: $text, Date: $date })-[r:COMMENTED]-(p:Produkt { ProductCode: $productcode }) " +
+                cursor = await session.RunAsync("MATCH (c:Comment { Name: $name, Date: $date })-[r:COMMENTED]-(p:Produkt { ProductCode: $productcode }) " +
                                                 "DELETE r " +
                                                 "DETACH DELETE c " +
                                                 "RETURN count(c) > 0 AS success", queryParams);
@@ -121,15 +121,21 @@ namespace WebShop.Controllers
                 IRecord record = await cursor.SingleAsync();
                 successful = record["success"].As<bool>();
             }
+            catch (Exception ex)
+            {
+                Log.ExceptionTrace(ex);
+            }
             finally
             {
                 await session.CloseAsync();
             }
 
-            if (!successful)
-                return BadRequest(new { message = "Doslo je do greske prilikom postavljanja komentara!" });
+            Log.WriteLine($"[Brisanje komentara] {productCode} {name} {date}");
 
-            return Ok(comment);
+            if (!successful)
+                return BadRequest(new { message = "Doslo je do greske prilikom brisanja komentara!" });
+
+            return Ok(productCode);
         }
     }
 }

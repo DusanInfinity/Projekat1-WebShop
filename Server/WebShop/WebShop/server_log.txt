@@ -1,2 +1,9 @@
 [11-01-2022 12:17:10.962] | INFO | Emailovi za produkt 1: 
 [11-01-2022 12:18:46.097] | INFO | Emailovi za produkt 1: dusan@gmail.com
+[14-01-2022 22:04:49.940] | INFO | [Brisanje komentara] 3 string 14-Jan-22 21:04:31
+[14-01-2022 22:04:54.432] | INFO | [Brisanje komentara] 3 string 14-Jan-22 21:04:31
+[14-01-2022 22:05:15.308] | INFO | [Brisanje komentara] 3 string 14-Jan-22 22:04:36
+[14-01-2022 22:05:19.022] | INFO | [Brisanje komentara] 3 string 14-Jan-22 22:04:36
+[14-01-2022 22:06:51.626] | INFO | [Brisanje komentara] 1 string 14-Jan-22 22:06:07
+[14-01-2022 22:12:02.460] | INFO | [Brisanje komentara] 1 string 14-Jan-22 21:11:36
+[14-01-2022 22:12:37.440] | INFO | [Brisanje komentara] 1 string 14-Jan-22 21:11:36

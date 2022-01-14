@@ -30,10 +30,48 @@ namespace WebShop.Controllers
             return HttpContext != null ? HttpContext.Connection.RemoteIpAddress : null;
         }
 
+        /* Pretraga svih produkata i eventualno vracanje i svih njihovih veza
+         MATCH (p:Produkt) 
+         OPTIONAL MATCH (p)-[:TAG]->(t:Tag)
+         RETURN p as produkti, collect(t.Name) as Tagovi
+         */
+        [HttpGet]
+        [Route("VratiPodatkeProdukta/{productCode}")]
+        public async Task<IActionResult> VratiPodatkeProdukta(int productCode)
+        {
+            IResultCursor cursor;
+            IAsyncSession session = _driver.AsyncSession();
+            Product product;
+            try
+            {
+                cursor = await session.RunAsync("MATCH (p:Produkt { ProductCode: $productCode }) " +
+                                                "OPTIONAL MATCH (p)-[:TAG]->(t:Tag) " +
+                                                "RETURN p as produkti, collect(t.Name) as tagovi ", new { productCode });
+
+
+                IRecord record = await cursor.SingleAsync();
+                product = JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties));
+                List<string> tags = record["tagovi"].As<List<string>>();
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.ExceptionTrace(ex, $"ProductCode_{productCode}");
+                return BadRequest(new { message = "Doslo je do greske prilikom pribavljanja podataka o produktu!" });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+
+            return Ok(product);
+        }
+
 
         [HttpGet]
-        [Route("VratiProdukte/{tag}")]
-        public async Task<IActionResult> VratiProdukte(string tag)
+        [Route("PretraziProdukte/{tag}")]
+        public async Task<IActionResult> PretraziProdukte(string tag)
         {
             IResultCursor cursor;
             var products = new List<Product>() { };
@@ -48,8 +86,11 @@ namespace WebShop.Controllers
             try
             {
                 cursor = await session.RunAsync("MATCH (n:Produkt) " +
-                                                $"WHERE n.Name =~ $tag OR any(tg in n.Tags WHERE tg =~ $tag) " +
-                                                $"RETURN n AS produkti LIMIT 50", new { tag });
+                                                $"WHERE n.Name =~ $tag " +
+                                                $"RETURN n AS produkti LIMIT 20 " +
+                                                $"UNION " +
+                                                "MATCH (p:Produkt)-[:TAG]->(t:Tag) WHERE t.Name =~ $tag " +
+                                                $"RETURN p AS produkti LIMIT 20 ", new { tag });
 
 
                 products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
@@ -63,8 +104,8 @@ namespace WebShop.Controllers
         }
 
         [HttpGet]
-        [Route("VratiProdukteSaViseTagova/{tagsList}")]
-        public async Task<IActionResult> VratiProdukteSaViseTagova(string tagsList)
+        [Route("PretraziProdukteSaViseTagova/{tagsList}")]
+        public async Task<IActionResult> PretraziProdukteSaViseTagova(string tagsList)
         {
             IResultCursor cursor;
             var products = new List<Product>() { };
@@ -89,8 +130,11 @@ namespace WebShop.Controllers
             {
                 cursor = await session.RunAsync("WITH $tags AS tagsList " +
                                                 "MATCH (n:Produkt) " +
-                                                $"WHERE any(tg in tagsList WHERE n.Name =~ tg) OR any(tg in n.Tags WHERE any(oneTag in tagsList WHERE tg =~ oneTag)) " +
-                                                $"RETURN n AS produkti LIMIT 50", new { tags });
+                                                $"WHERE any(tg in tagsList WHERE n.Name =~ tg) " +
+                                                $"RETURN n AS produkti LIMIT 20 " +
+                                                $"UNION " +
+                                                "MATCH (p:Produkt)-[:TAG]->(t:Tag) WHERE any(tg in $tags WHERE t.Name =~ tg) " +
+                                                $"RETURN p AS produkti LIMIT 20 ", new { tags });
 
 
                 products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
@@ -107,7 +151,6 @@ namespace WebShop.Controllers
         [Route("DodajProdukt")]
         public async Task<IActionResult> DodajProdukt([FromBody] Product newProduct)
         {
-            // TO-DO provera da li postoji produkt sa unetom sifrom
             IResultCursor cursor;
             Product product;
             IAsyncSession session = _driver.AsyncSession();
@@ -125,17 +168,33 @@ namespace WebShop.Controllers
                     { "comments", null },
                 };
 
-                cursor = await session.RunAsync("CREATE (n:Produkt {" +
+                cursor = await session.RunAsync("MATCH (p:Produkt { ProductCode: $productcode}) " +
+                                               "RETURN count(p) > 0 AS alreadyExist", queryParams);
+
+                IRecord record = await cursor.SingleAsync();
+                bool alreadyExist = record["alreadyExist"].As<bool>();
+                if (alreadyExist)
+                    return BadRequest(new { message = "Produkt sa unetim serijskim brojem vec postoji!" });
+
+
+
+                cursor = await session.RunAsync("WITH $tags AS tagList " +
+                                                "CREATE (n:Produkt {" +
                                                 $" ProductCode: $productcode," +
                                                 $" Name: $name," +
                                                 $" Price: $price," +
                                                 $" Quantity: $quantity," +
                                                 $" Description: $description," +
                                                 $" Image: $image," +
-                                                $" Tags: $tags," +
-                                                $" Comments: $comments" +
-                                                "}) RETURN n AS produkt", queryParams);
+                                                $" Comments: $comments " +
+                                                "}) " +
+                                                "FOREACH (tg in tagList | " +
+                                                "MERGE (t:Tag { Name: tg }) " +
+                                                "MERGE (n)-[:TAG]->(t) " +
+                                                ")" +
+                                                "RETURN n AS produkt", queryParams);
                 product = await cursor.SingleAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkt"].As<INode>().Properties)));
+                product.Tags = newProduct.Tags;
             }
             finally
             {
@@ -170,15 +229,22 @@ namespace WebShop.Controllers
 
 
 
-
-                cursor = await session.RunAsync("MATCH (n:Produkt { ProductCode: $ProductCode }) SET" +
+                cursor = await session.RunAsync("WITH $Tags AS tagsList " +
+                                                "OPTIONAL MATCH (prod:Produkt { ProductCode: $ProductCode })-[tgdel:TAG]->(tg:Tag) WHERE NOT tg.Name IN tagsList " +
+                                                "MATCH (n:Produkt { ProductCode: $ProductCode }) SET" +
                                                 $" n.Name = $Name," +
                                                 $" n.Price = $Price," +
                                                 $" n.Quantity = $Quantity," +
                                                 $" n.Description = $Description," +
-                                                $" n.Image = $Image," +
-                                                $" n.Tags = $Tags RETURN n AS produkt", new { newProduct.ProductCode, newProduct.Name, newProduct.Price, newProduct.Quantity, newProduct.Description, newProduct.Image, newProduct.Tags });
+                                                $" n.Image = $Image " +
+                                                "DELETE tgdel " +
+                                                "FOREACH (tt in tagsList | " +
+                                                "MERGE (t:Tag { Name: tt }) " +
+                                                "MERGE (n)-[:TAG]->(t) " +
+                                                ")" +
+                                                $"RETURN n AS produkt", new { newProduct.ProductCode, newProduct.Name, newProduct.Price, newProduct.Quantity, newProduct.Description, newProduct.Image, newProduct.Tags });
                 product = await cursor.SingleAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkt"].As<INode>().Properties)));
+                product.Tags = newProduct.Tags;
             }
             finally
             {
@@ -196,7 +262,16 @@ namespace WebShop.Controllers
             IAsyncSession session = _driver.AsyncSession();
             try
             {
-                cursor = await session.RunAsync("MATCH (n:Produkt { ProductCode: $productCode }) DELETE n RETURN n AS produkt", new { productCode });
+                cursor = await session.RunAsync("OPTIONAL MATCH (:Produkt { ProductCode: $productCode })-[tgrel:TAG]->(:Tag) " +
+                                                "MATCH (n:Produkt { ProductCode: $productCode }) " +
+                                                "DELETE tgrel " +
+                                                "DETACH DELETE n " +
+                                                "RETURN count(n) > 0 AS success", new { productCode });
+
+                IRecord record = await cursor.SingleAsync();
+                bool successful = record["success"].As<bool>();
+                if (!successful)
+                    return BadRequest(new { message = "Doslo je do greske prilikom brisanja produkta!" });
             }
             finally
             {
