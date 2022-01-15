@@ -51,6 +51,7 @@ namespace WebShop.Controllers
                     { "cname", order.CustomerData.Firstname + " " + order.CustomerData.Lastname},
                     { "address", order.CustomerData.Address },
                     { "phoneNum", order.CustomerData.PhoneNumber },
+                    { "date", DateTime.Now.ToString() }, // Vreme isto za sve porucene produkte
                 };
 
                 foreach (var p in order.OrderedProducts)
@@ -63,7 +64,7 @@ namespace WebShop.Controllers
                     additionalParams = additionalParams.Concat(queryParams).ToDictionary(x => x.Key, x => x.Value);
 
                     cursor = await session.RunAsync("MATCH (prod:Produkt { ProductCode: $productCode }) WHERE prod.Quantity > 0 " +
-                                                    "MERGE (o:Order { CustomerName: $cname, Address: $address, PhoneNum: $phoneNum, Date: datetime() }) " +
+                                                    "MERGE (o:Order { CustomerName: $cname, Address: $address, PhoneNum: $phoneNum, Date: $date }) " +
                                                     "CREATE (op:OrderedProduct { Quantity: $quantity }) " +
                                                     "CREATE (op)-[:IS]->(prod) " +
                                                     "MERGE (o)-[:INCLUDE]->(op) " +
