@@ -12,6 +12,7 @@ namespace WebShop.Models
         public string Image { get; set; }
         public List<string> Tags { get; set; }
         public List<ProductComment> Comments { get; set; }
+        public string Category { get; set; }
 
         public void InformFollowersAboutQuantity(int quantity, List<string> emails)
         {

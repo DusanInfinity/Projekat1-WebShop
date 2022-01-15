@@ -12,8 +12,10 @@ class ApiClient extends HttpClient {
   get produkti() {
       return {
           vratiSveProdukte: () => this.get(`Product/VratiSveProdukte`),
+          vratiProdukteIzKategorije: (category) => this.get(`Product/VratiProdukteIzKategorije/${category}`),
           vratiNajprodavanijeProdukte: () => this.get(`Product/VratiNajprodavanijeProdukte`),
           vratiNajnovijeProdukte: () => this.get(`Product/VratiNajnovijeProdukte`),
+          vratiPreporuceneProdukte: () => this.get(`Product/VratiPreporuceneProdukte`),
           vratiPodatkeProdukta: (productCode) => this.get(`Product/VratiPodatkeProdukta/${productCode}`),
           pretraziProdukte: (tag) => this.get(`Product/PretraziProdukte/${tag}`),
           pretraziProdukteSaViseTagova: (tags) => this.get(`Product/PretraziProdukteSaViseTagova/${tags}`), // Salje se string tags gde su tagovi razdvojeni blanko znakom

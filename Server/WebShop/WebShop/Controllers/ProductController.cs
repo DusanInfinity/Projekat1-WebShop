@@ -46,14 +46,16 @@ namespace WebShop.Controllers
             {
                 cursor = await session.RunAsync("MATCH (p:Produkt { ProductCode: $productCode }) " +
                                                 "OPTIONAL MATCH (p)-[:TAG]->(t:Tag) " +
-                                                "RETURN p as produkti, collect(t.Name) as tagovi ", new { productCode });
+                                                "OPTIONAL MATCH (p)-[:CATEGORY]->(cat:Category) " +
+                                                "RETURN p AS produkti, collect(t.Name) AS tagovi, cat.Name AS kategorija", new { productCode });
 
 
                 IRecord record = await cursor.SingleAsync();
                 product = JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties));
                 List<string> tags = record["tagovi"].As<List<string>>();
-
-
+                string category = record["kategorija"].As<string>();
+                product.Tags = tags;
+                product.Category = category;
             }
             catch (Exception ex)
             {
@@ -82,6 +84,31 @@ namespace WebShop.Controllers
                 products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
 
 
+            }
+            catch
+            {
+                return BadRequest(new { message = "Doslo je do greske prilikom pribavljanja svih produkata!" });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+
+            return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("VratiProdukteIzKategorije/{category}")]
+        public async Task<IActionResult> VratiProdukteIzKategorije(string category)
+        {
+            IResultCursor cursor;
+            IAsyncSession session = _driver.AsyncSession();
+            var products = new List<Product>();
+            try
+            {
+                cursor = await session.RunAsync("MATCH (p:Produkt)-[:CATEGORY]->(cat:Category { Name: $category }) RETURN p as produkti", new { category });
+
+                products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
             }
             catch
             {
@@ -139,6 +166,45 @@ namespace WebShop.Controllers
                                                 "RETURN prod AS produkti " +
                                                 "ORDER BY prod.CreatedDate DESC " +
                                                 "LIMIT 10");
+
+                products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.ExceptionTrace(ex);
+                return BadRequest(new { message = "Doslo je do greske prilikom pribavljanja najprodavanijih produkata!" });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+
+            return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("VratiPreporuceneProdukte")]
+        public async Task<IActionResult> VratiPreporuceneProdukte()
+        {
+            IResultCursor cursor;
+            IAsyncSession session = _driver.AsyncSession();
+            var products = new List<Product>();
+
+            string userIP = GetUserIP().ToString();
+            if (!_redis.ContainsKey($"visitor_{userIP}"))
+                return Ok(products);
+
+            List<string> tags = _redis.GetAllItemsFromSet($"visitor_{userIP}").ToList();
+
+            try
+            {
+
+
+
+                cursor = await session.RunAsync("MATCH (p:Produkt)-[:TAG]->(t:Tag) WHERE any(tg in $tags WHERE t.Name =~ tg) " +
+                                                "RETURN p AS produkti LIMIT 10 ", new { tags });
 
                 products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
 
@@ -254,6 +320,7 @@ namespace WebShop.Controllers
                     { "description", newProduct.Description },
                     { "image", newProduct.Image },
                     { "tags", newProduct.Tags },
+                    { "category", newProduct.Category },
                 };
 
                 cursor = await session.RunAsync("MATCH (p:Produkt { ProductCode: $productcode}) " +
@@ -279,7 +346,9 @@ namespace WebShop.Controllers
                                                 "FOREACH (tg in tagList | " +
                                                 "MERGE (t:Tag { Name: tg }) " +
                                                 "MERGE (n)-[:TAG]->(t) " +
-                                                ")" +
+                                                ") " +
+                                                "MERGE (cat:Category { Name: $category }) " +
+                                                "MERGE (n)-[:CATEGORY]->(cat) " +
                                                 "RETURN n AS produkt", queryParams);
                 product = await cursor.SingleAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkt"].As<INode>().Properties)));
                 product.Tags = newProduct.Tags;
