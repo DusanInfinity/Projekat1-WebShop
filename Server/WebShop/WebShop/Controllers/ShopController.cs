@@ -51,7 +51,6 @@ namespace WebShop.Controllers
                     { "cname", order.CustomerData.Firstname + " " + order.CustomerData.Lastname},
                     { "address", order.CustomerData.Address },
                     { "phoneNum", order.CustomerData.PhoneNumber },
-                    { "date", DateTime.Now },
                 };
 
                 foreach (var p in order.OrderedProducts)
@@ -63,12 +62,12 @@ namespace WebShop.Controllers
                     };
                     additionalParams = additionalParams.Concat(queryParams).ToDictionary(x => x.Key, x => x.Value);
 
-                    cursor = await session.RunAsync("MATCH (prod:Produkt { ProductCode: $productCode }) " +
-                                                    "MERGE (o:Order { CustomerName: $cname, Address: $address, PhoneNum: $phoneNum, " +
-                                                    "Date: $date }) " +
-                                                    "CREATE (op:OrderedProduct { Quantity: $quantity } " +
+                    cursor = await session.RunAsync("MATCH (prod:Produkt { ProductCode: $productCode }) WHERE prod.Quantity > 0 " +
+                                                    "MERGE (o:Order { CustomerName: $cname, Address: $address, PhoneNum: $phoneNum, Date: datetime() }) " +
+                                                    "CREATE (op:OrderedProduct { Quantity: $quantity }) " +
                                                     "CREATE (op)-[:IS]->(prod) " +
                                                     "MERGE (o)-[:INCLUDE]->(op) " +
+                                                    "SET prod.Quantity = prod.Quantity - $quantity " +
                                                     "RETURN o as CreatedOrder", additionalParams);
                     successfulOrder = (await cursor.SingleAsync()).Keys.Contains("CreatedOrder");
 
