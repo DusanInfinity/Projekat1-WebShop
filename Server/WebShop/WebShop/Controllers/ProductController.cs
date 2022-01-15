@@ -420,8 +420,12 @@ namespace WebShop.Controllers
             try
             {
                 cursor = await session.RunAsync("OPTIONAL MATCH (:Produkt { ProductCode: $productCode })-[tgrel:TAG]->(:Tag) " +
+                                                "OPTIONAL MATCH (:OrderedProduct)-[oprel:IS]->(:Produkt { ProductCode: $productCode }) " +
+                                                "OPTIONAL MATCH (:Produkt { ProductCode: $productCode })-[catrel:CATEGORY]->(:Category) " +
                                                 "MATCH (n:Produkt { ProductCode: $productCode }) " +
+                                                "DELETE oprel " +
                                                 "DELETE tgrel " +
+                                                "DELETE catrel " +
                                                 "DETACH DELETE n " +
                                                 "RETURN count(n) > 0 AS success", new { productCode });
 
