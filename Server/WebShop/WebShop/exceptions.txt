@@ -4,3 +4,24 @@ The result is empty.
    at WebShop.Controllers.ProductController.VratiPodatkeProdukta(Int32 productCode) in E:\Moji podaci\FAX podaci\IV godina\VII semestar\Napredne baze podataka\Projekat 1 - WebShop\Server\WebShop\WebShop\Controllers\ProductController.cs:line 52
 Dodatan komentar: ProductCode_6
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[15-01-2022 13:34:11.360] | ProductController.VratiNajprodavanijeProdukte ThrowKeyNotFoundException
+The given key 'produkti' was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at Neo4j.Driver.Internal.Result.Record.get_Item(String key)
+   at WebShop.Controllers.ProductController.<>c.<VratiNajprodavanijeProdukte>b__7_0(IRecord record) in E:\Moji podaci\FAX podaci\IV godina\VII semestar\Napredne baze podataka\Projekat 1 - WebShop\Server\WebShop\WebShop\Controllers\ProductController.cs:line 112
+   at Neo4j.Driver.ResultCursorExtensions.ToListAsync[T](IResultCursor result, Func`2 operation)
+   at WebShop.Controllers.ProductController.VratiNajprodavanijeProdukte() in E:\Moji podaci\FAX podaci\IV godina\VII semestar\Napredne baze podataka\Projekat 1 - WebShop\Server\WebShop\WebShop\Controllers\ProductController.cs:line 112
+Dodatan komentar: NULL
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[15-01-2022 13:34:58.953] | ProductController.VratiNajprodavanijeProdukte EnsureThrownIf
+Variable `produkti` not defined (line 1, column 57 (offset: 56))
+"MATCH (op:OrderedProduct)-[r:IS]->(prod:Produkt) RETURN produkti, COUNT(r) ORDER BY COUNT(r) DESC LIMIT 10"
+                                                         ^
+   at Neo4j.Driver.Internal.MessageHandling.ResponsePipelineError.EnsureThrownIf(Func`2 predicate)
+   at Neo4j.Driver.Internal.MessageHandling.ResponsePipelineError.EnsureThrown()
+   at Neo4j.Driver.Internal.Result.ResultCursorBuilder.NextRecordAsync()
+   at Neo4j.Driver.Internal.Result.ResultCursor.FetchAsync()
+   at Neo4j.Driver.ResultCursorExtensions.ToListAsync[T](IResultCursor result, Func`2 operation)
+   at WebShop.Controllers.ProductController.VratiNajprodavanijeProdukte() in E:\Moji podaci\FAX podaci\IV godina\VII semestar\Napredne baze podataka\Projekat 1 - WebShop\Server\WebShop\WebShop\Controllers\ProductController.cs:line 112
+Dodatan komentar: NULL
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

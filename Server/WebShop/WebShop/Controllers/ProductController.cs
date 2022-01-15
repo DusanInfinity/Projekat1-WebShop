@@ -68,13 +68,71 @@ namespace WebShop.Controllers
             return Ok(product);
         }
 
+        [HttpGet]
+        [Route("VratiSveProdukte")]
+        public async Task<IActionResult> VratiSveProdukte()
+        {
+            IResultCursor cursor;
+            IAsyncSession session = _driver.AsyncSession();
+            var products = new List<Product>();
+            try
+            {
+                cursor = await session.RunAsync("MATCH (p:Produkt) RETURN p as produkti");
+
+                products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
+
+
+            }
+            catch
+            {
+                return BadRequest(new { message = "Doslo je do greske prilikom pribavljanja svih produkata!" });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+
+            return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("VratiNajprodavanijeProdukte")]
+        public async Task<IActionResult> VratiNajprodavanijeProdukte()
+        {
+            IResultCursor cursor;
+            IAsyncSession session = _driver.AsyncSession();
+            var products = new List<Product>();
+            try
+            {
+                cursor = await session.RunAsync("MATCH (op:OrderedProduct)-[r:IS]->(prod:Produkt) " +
+                                                "RETURN prod AS produkti, COUNT(r) " +
+                                                "ORDER BY COUNT(r) DESC " +
+                                                "LIMIT 10");
+
+                products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.ExceptionTrace(ex);
+                return BadRequest(new { message = "Doslo je do greske prilikom pribavljanja najprodavanijih produkata!" });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+
+            return Ok(products);
+        }
+
 
         [HttpGet]
         [Route("PretraziProdukte/{tag}")]
         public async Task<IActionResult> PretraziProdukte(string tag)
         {
             IResultCursor cursor;
-            var products = new List<Product>() { };
+            var products = new List<Product>();
             IAsyncSession session = _driver.AsyncSession();
 
             string userIP = GetUserIP().ToString();
