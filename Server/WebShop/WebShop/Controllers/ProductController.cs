@@ -126,6 +126,37 @@ namespace WebShop.Controllers
             return Ok(products);
         }
 
+        [HttpGet]
+        [Route("VratiNajnovijeProdukte")]
+        public async Task<IActionResult> VratiNajnovijeProdukte()
+        {
+            IResultCursor cursor;
+            IAsyncSession session = _driver.AsyncSession();
+            var products = new List<Product>();
+            try
+            {
+                cursor = await session.RunAsync("MATCH (prod:Produkt) " +
+                                                "RETURN prod AS produkti " +
+                                                "ORDER BY prod.CreatedDate DESC " +
+                                                "LIMIT 10");
+
+                products = await cursor.ToListAsync(record => JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(record["produkti"].As<INode>().Properties)));
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.ExceptionTrace(ex);
+                return BadRequest(new { message = "Doslo je do greske prilikom pribavljanja najprodavanijih produkata!" });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+
+            return Ok(products);
+        }
+
 
         [HttpGet]
         [Route("PretraziProdukte/{tag}")]
@@ -223,7 +254,6 @@ namespace WebShop.Controllers
                     { "description", newProduct.Description },
                     { "image", newProduct.Image },
                     { "tags", newProduct.Tags },
-                    { "comments", null },
                 };
 
                 cursor = await session.RunAsync("MATCH (p:Produkt { ProductCode: $productcode}) " +
@@ -244,7 +274,7 @@ namespace WebShop.Controllers
                                                 $" Quantity: $quantity," +
                                                 $" Description: $description," +
                                                 $" Image: $image," +
-                                                $" Comments: $comments " +
+                                                $" CreatedDate: datetime() " +
                                                 "}) " +
                                                 "FOREACH (tg in tagList | " +
                                                 "MERGE (t:Tag { Name: tg }) " +
