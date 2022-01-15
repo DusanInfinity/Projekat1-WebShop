@@ -154,7 +154,7 @@ body{
 
 
 
-.container{
+.kontejner{
     display: flex;
     height: 100%;
 }
@@ -194,14 +194,14 @@ body{
 
 
 
-.container .content-container{
+.kontejner .content-container{
     width: 100%;
     margin: 10px 10px;
 }
 
 
 
-.container .content-container .filtriranje-sortiranje{
+.kontejner .content-container .filtriranje-sortiranje{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -210,7 +210,7 @@ body{
 }
 
 
-.container .content-container .filtriranje-sortiranje .filtriranje input{
+.kontejner .content-container .filtriranje-sortiranje .filtriranje input{
     background: transparent none repeat scroll 0 0;
     border: 1px solid gray;
     color: #323232;
@@ -220,11 +220,11 @@ body{
 }
 
 
-.container .content-container .filtriranje-sortiranje .sortiranje label{
+.kontejner .content-container .filtriranje-sortiranje .sortiranje label{
     font-size: 18px;
 }
 
-.container .content-container .filtriranje-sortiranje .sortiranje select{
+.kontejner .content-container .filtriranje-sortiranje .sortiranje select{
     background-color: rgb(34, 69, 145);
     color: white;
     padding: 10px;
@@ -235,7 +235,7 @@ body{
 }
 
 
-.container .content-container .proizvodi-container{
+.kontejner .content-container .proizvodi-container{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -246,7 +246,7 @@ body{
 
 
 
-.container .content-container .proizvodi-container .proizvodi-container-hearder{
+.kontejner .content-container .proizvodi-container .proizvodi-container-hearder{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -255,13 +255,13 @@ body{
 }
 
 
-.container .content-container .proizvodi-container .proizvodi-container-hearder .proizvodi-container-hearder-item{
+.kontejner .content-container .proizvodi-container .proizvodi-container-hearder .proizvodi-container-hearder-item{
     height: 100%;
     min-width: 10px;
     background-color: rgb(223, 130, 130);
 }
 
-.container .content-container .proizvodi-container .proizvodi-container-hearder .proizvodi-container-hearder-content{
+.kontejner .content-container .proizvodi-container .proizvodi-container-hearder .proizvodi-container-hearder-content{
     display: flex;
     align-items: center;
     width: 100%;
@@ -272,7 +272,7 @@ body{
 }
 
 
-.container .content-container .proizvodi-container-content{
+.kontejner .content-container .proizvodi-container-content{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -281,7 +281,7 @@ body{
     background-color: rgb(235, 235, 235);
 }
 
-.container .content-container .proizvodi-container-content .proizvod{
+.kontejner .content-container .proizvodi-container-content .proizvod{
     flex-basis: 220px;
     flex-grow: 1;
     flex-shrink: 0;
@@ -298,28 +298,28 @@ body{
 
 
 
-.container .content-container .proizvodi-container-content .proizvod img{
+.kontejner .content-container .proizvodi-container-content .proizvod img{
     width: 240px;
 }
 
-.container .content-container .proizvodi-container-content .proizvod img :hover{
+.kontejner .content-container .proizvodi-container-content .proizvod img :hover{
     cursor: pointer;
 }
 
-.container .content-container .proizvodi-container-content .proizvod .ime-proizvod{
+.kontejner .content-container .proizvodi-container-content .proizvod .ime-proizvod{
     font-size: 20px;
     text-align: center;
     color: rgb(7, 37, 102);
 }
 
 
-.container .content-container .proizvodi-container-content .proizvod .cena-proizvod{
+.kontejner .content-container .proizvodi-container-content .proizvod .cena-proizvod{
     font-size: 35px;
     color: rgb(224, 44, 44);
     text-align: center;
 }
 
-.container .content-container .proizvodi-container-content .proizvod a{
+.kontejner .content-container .proizvodi-container-content .proizvod a{
     width: 90%;
     font-size: 1.3rem;
     border-top: 1px solid black;
@@ -333,7 +333,7 @@ body{
 
 
 
-.container .content-container .proizvodi-container-content .proizvod a i{
+.kontejner .content-container .proizvodi-container-content .proizvod a i{
     margin-right: 10px;
 }
 

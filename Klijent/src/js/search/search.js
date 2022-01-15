@@ -1,49 +1,23 @@
 import { Proizvod } from "../proizvod.js";
 
+import ApiClient from "../global/apiClient.js";
+const api = new ApiClient();
 
 let url = new URL(document.location.href);
 let value = url.searchParams.get("value");
 
+let puna_lista_proizvoda = [];
+
+if(value.split(" ").length > 1){
+    puna_lista_proizvoda = await api.produkti.pretraziProdukteSaViseTagova(value);
+}
+else{
+    puna_lista_proizvoda = await api.produkti.pretraziProdukte(value);
+}
+
 let naslov = document.querySelector(".proizvodi-container-hearder-content");
 naslov.innerHTML = "Rezultat pretrage";
 
-
-// fetch svih proizvoda pretrage
-
-let puna_lista_proizvoda = [
-    {
-        id: 1,
-        name: "Poco x3 pro",
-        price: "112000 RSD",
-        quantity: 4,
-        description: "deskripcija",
-        image: null
-    },
-    {
-        id: 2,
-        name: "Nokia",
-        price: "22000 RSD",
-        quantity: 4,
-        description: "deskripcija",
-        image: null
-    },
-    {
-        id: 3,
-        name: "Samsung galaxy S10 Ultra",
-        price: "1 RSD",
-        quantity: 4,
-        description: "deskripcija",
-        image: null
-    },
-    {
-        id: 4,
-        name: "Huawei",
-        price: "12312 RSD",
-        quantity: 4,
-        description: "deskripcija",
-        image: null
-    }
-];
 
 let lista_proizvoda = puna_lista_proizvoda.sort(function(a, b){
     var nameA = a.name.toUpperCase();
@@ -56,14 +30,13 @@ let lista_proizvoda = puna_lista_proizvoda.sort(function(a, b){
 });
 
 
-
 function prikaziProizvode() {
 
     if (lista_proizvoda.length > 0) {
         
         let kontejner = document.querySelector(".proizvodi-container-content");
         lista_proizvoda.forEach(el => {
-            let proizvod = new Proizvod(el.id, el.name, el.price, el.description, el.quantity, el.image);
+            let proizvod = new Proizvod(el.productCode, el.name, el.price, el.description, el.quantity, el.image);
             proizvod.drawSelf(kontejner);
         });
     }
@@ -72,7 +45,7 @@ function prikaziProizvode() {
     else {
         let kontejner = document.querySelector(".proizvodi-container-content");
         let div = document.createElement("div");
-        div.innerHTML = `Žao nam je. Nema proizvoda u ponudi za datu pretragu "${value.bold()}". Pokušajte ponovo!`;
+        div.innerHTML = `Žao nam je. Nema proizvoda u ponudi za datu pretragu "${value.bold()}". Pretražite ponovo!`;
         div.style.fontSize = "30px";
         div.style.margin = "30px 0";
         kontejner.appendChild(div);
@@ -201,12 +174,12 @@ function sortiraj(value){
     }
     else if (value == 2){
         lista_proizvoda = lista_proizvoda.sort(function(a, b){
-            return a.price.split(" ")[0] - b.price.split(" ")[0];
+            return a.price - b.price;
         })
     }
     else if (value == 3){
         lista_proizvoda = lista_proizvoda.sort(function(a, b){
-            return b.price.split(" ")[0] - a.price.split(" ")[0];
+            return b.price - a.price;
         })
     }
 }
@@ -233,7 +206,7 @@ function filtriraj(odCena, doCena){
     }
     lista_proizvoda = [];
     puna_lista_proizvoda.forEach(el => {
-        if(parseInt(el.price.split(" ")[0]) >= odCena && parseInt(el.price.split(" ")[0]) <= doCena){
+        if(parseInt(el.price) >= odCena && parseInt(el.price) <= doCena){
             lista_proizvoda.push(el);
         }
     })

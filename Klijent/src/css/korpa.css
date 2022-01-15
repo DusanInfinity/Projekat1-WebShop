@@ -1,0 +1,234 @@
+.proizvodi-container{
+    width: 80% !important;
+}
+
+.korpa-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+}
+
+.korpa-container table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-weight: 600;
+}
+
+
+.korpa-container table th{
+    padding: 10px;
+    background-color: #EBEBEB;
+    font-weight: bold;
+    white-space: nowrap;
+    color: #000;
+    font-weight: normal;
+    text-align: left;
+    font-size: 15px;
+}
+
+.korpa-container table .a-center{
+    text-align: center !important;
+}
+
+.korpa-container table .a-right{
+    text-align: right !important;
+}
+
+
+.korpa-container table td{
+    padding: 10px;
+    border-bottom: 1px solid #ececec;
+    font-size: 15px;
+}
+
+.korpa-container table .price{
+    font-weight: normal;
+}
+
+.korpa-container table .kolicina-input-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.korpa-container table .kolicina-input-div .kolicina-input{
+    text-align: center;
+}
+
+.korpa-container table .buttons-span{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.korpa-container table .buttons-span button{
+    border: 1px solid black;
+    border-collapse: collapse;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: -1px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    /* font-size: 15px; */
+}
+
+
+.korpa-container table .buttons-span button:hover{
+    background-color: gray;
+}
+
+.korpa-container table .buttons-span .button-plus{
+    border-top-right-radius: 3px;
+}   
+
+
+
+.korpa-container table .buttons-span .button-minus{
+    margin-top: -2px;
+    border-bottom-right-radius: 3px;
+}
+
+
+.korpa-container .porudzbina-buttons-div{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px;
+}
+
+
+
+
+.korpa-container .porudzbina-buttons-div button{
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+
+
+.korpa-container .porudzbina-buttons-div button:hover{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+
+.korpa-container #customer-data{
+    display:none;
+    border-radius: 5px;
+    background: #F8F8F8;
+    margin-top: 50px;
+
+
+}
+
+
+
+.korpa-container #customer-data p{ 
+    font-weight: bold;
+    color: #829db9;
+    clear: both;
+    display: block;
+    margin-right: 15px;
+    margin-left: 15px;
+    padding-top: 25px;
+    font-size: 15px;
+}
+
+
+.korpa-container #customer-data hr{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    border: 0;
+    border-top: 1px solid rgb(222, 222, 222);
+}
+
+.korpa-container #customer-data .form-group-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 30px;
+}
+
+.korpa-container #customer-data .form-group-row-50{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.korpa-container #customer-data .form-group{
+    width: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.korpa-container #customer-data .form-group-50{
+   width: 30%;
+}
+
+
+.korpa-container #customer-data .form-group label{
+    margin-bottom: 5px;
+}
+
+
+
+.korpa-container #customer-data .form-group input{
+    width: 90%;
+    line-height: 1.42857143;
+    padding: 5px 10px;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+
+.korpa-container #customer-data .posalji-porudzbinu-buttons-div{
+    display: flex;
+    justify-content: center;
+    padding: 20px 20px;
+}
+
+
+.korpa-container #customer-data .posalji-porudzbinu-buttons-div button{
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 20px;
+    font-size: 17px;
+    line-height: 1.5;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+
+.korpa-container #customer-data .posalji-porudzbinu-buttons-div button:hover{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}

@@ -1,0 +1,119 @@
+
+
+
+.proizvodi-admin{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.proizvodi-admin .btn-dodaj-proizvod-div{
+    width: 100%;
+    text-align: center;
+    padding: 20px 0px;
+    border-bottom: 1px solid rgb(116, 116, 116);
+}
+
+
+
+.proizvodi-admin .btn-dodaj-proizvod-div button{
+    font-size: 17px;
+    color: white;
+    border-radius: 4px;
+    padding: 0 10px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 500;
+    background-color: rgb(75, 158, 75);
+}
+
+
+.proizvodi-admin .btn-dodaj-proizvod-div button:hover{
+    
+    background-color: rgb(69, 141, 69);
+}
+
+
+
+.proizvod-admin-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.proizvod-admin-div{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgb(116, 116, 116);
+}
+
+
+
+
+.proizvod-admin-div .proizvod-admin-buttons-div{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.proizvod-admin-div .proizvod-admin-buttons-div button{
+    font-size: 15px;
+    color: black;
+    border-radius: 4px;
+    padding: 0 10px;
+    height: 30px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+
+
+
+.proizvod-admin-div .proizvod-admin-buttons-div .btn-izmeni-proizvod{
+    background-color: rgb(252, 236, 92);
+}
+
+
+.proizvod-admin-div .proizvod-admin-buttons-div .btn-izmeni-proizvod:hover{
+    background-color: rgb(196, 181, 75);
+}
+
+
+
+.proizvod-admin-div .proizvod-admin-buttons-div .btn-obrisi-proizvod{
+    background-color: rgb(252, 92, 92);
+}
+
+
+.proizvod-admin-div .proizvod-admin-buttons-div .btn-obrisi-proizvod:hover{
+    background-color: rgb(177, 64, 64);
+}
+
+
+.komentar_div{
+    border-bottom: 1px solid gray;
+}
+
+.comment-div{
+    padding: 10px 10px;
+}
+
+.comment-text{
+    font-size: 13px;
+}
+
+.comment-name{
+    font-size: 13px;
+}

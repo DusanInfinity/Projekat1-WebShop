@@ -7,3 +7,10 @@
 [14-01-2022 22:06:51.626] | INFO | [Brisanje komentara] 1 string 14-Jan-22 22:06:07
 [14-01-2022 22:12:02.460] | INFO | [Brisanje komentara] 1 string 14-Jan-22 21:11:36
 [14-01-2022 22:12:37.440] | INFO | [Brisanje komentara] 1 string 14-Jan-22 21:11:36
+[15/01/2022 17:59:59.163] | INFO | [Brisanje komentara] 3 qweqe 1/15/2022 4:58:12 PM
+[15/01/2022 18:00:10.328] | INFO | [Brisanje komentara] 3 asd 1/15/2022 4:59:06 PM
+[15/01/2022 20:09:48.499] | INFO | [Brisanje komentara] 1 Stefan 1/15/2022 7:07:58 PM
+[15/01/2022 20:12:27.943] | INFO | [Brisanje komentara] 1 erre 1/15/2022 7:12:00 PM
+[15/01/2022 20:12:29.733] | INFO | [Brisanje komentara] 1 qwe 1/15/2022 7:11:54 PM
+[15/01/2022 20:12:30.830] | INFO | [Brisanje komentara] 1 asd 1/15/2022 7:11:44 PM
+[15/01/2022 20:13:34.116] | INFO | [Brisanje komentara] 5 Proba Ime 1/15/2022 6:28:43 PM

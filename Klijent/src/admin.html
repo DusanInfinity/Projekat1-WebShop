@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebShop</title>
+    <link rel="stylesheet" href="/css/stil.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+</head>
+<body>
+    
+    <nav class="topbar">
+        <div class="logo">
+            WebShop
+        </div>
+        <div class="topnav-tools">
+
+            <div>
+                <a class="topnav-tool" href="admin.html">
+                    <i class="fa fa-user"></i>
+                    <span>Admin</span>
+                </a>
+            </div>
+            <div>    
+                <a class="topnav-tool" href="korpa.html">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>Korpa</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="search-mainnav-container">
+        <div class="search">
+            <input type="text" id="pretragaInput" placeholder="Pretraži sajt...">
+            <button class="button-search">
+                <i class="fa fa-search"></i>
+                Pretraži
+            </button>
+        </div>
+        
+        <div class="mainnav">
+            <ul>
+                <li>
+                    <a href="/">Početna stranica</a>
+                </li>
+                <li>
+                    <a href="/najnovijiproizvodi.html">Najnoviji</a>
+                </li>
+                <li>    
+                    <a href="/najprodavanijiproizvodi.html">Najprodavaniji</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="kontejner">
+        <nav class="sidenav">
+            <!-- <a class="nav-link" href="stranica.html">
+                Telefoni
+            </a> -->
+        </nav>
+
+        <div class="content-container">
+            <div class="proizvodi-container">
+                <div class="proizvodi-container-hearder">
+                    <div class="proizvodi-container-hearder-item"></div>
+                    <div class="proizvodi-container-hearder-content">
+                        Svi proizvodi
+                    </div>
+                </div>
+
+                <div class="proizvodi-admin">
+                    <div class="btn-dodaj-proizvod-div">
+                        <button data-bs-toggle="modal" data-bs-target="#exampleModalDodavanje">Dodaj novi proizvod</button> 
+                    </div>
+                    <div class="proizvod-admin-container">
+                        <!-- <div class="proizvod-admin-div">
+                            <img src="./assets/slika.jpg" width="100">
+                            <label>Proizvod</label>
+                            <div class="proizvod-admin-buttons-div">
+                                <button class="btn-izmeni-proizvod" data-bs-toggle="modal" data-bs-target="#exampleModalIzmena">Izmeni proizvod</button>
+                                <button class="btn-obrisi-proizvod" data-bs-toggle="modal" data-bs-target="#exampleModalBrisanje">Obriši proizvod</button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exampleModalDodavanje" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Novi proizvod</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>ID produkta</label>
+                            <input class="col-md-8 product-id" type="number">
+                        </div>
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>Ime</label>
+                            <input class="col-md-8 product-ime">
+                        </div>
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>Cena</label>
+                            <input class="col-md-8 product-cena" type="number">
+                        </div>
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>Opis</label>
+                            <textarea class="col-md-8 product-opis" rows="5" style="text-align:left;">
+
+                            </textarea>
+                        </div>
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>Količina</label>
+                            <input class="col-md-8 product-kolicina" type="number">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-dodaj-proizvod">Sačuvaj proizvod</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exampleModalIzmena" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Izmena proizvoda</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>Ime</label>
+                            <input class="col-md-8 product-izmeni-ime">
+                        </div>
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>Cena</label>
+                            <input class="col-md-8 product-izmeni-cena" type="number">
+                        </div>
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>Opis</label>
+                            <textarea class="col-md-8 product-izmeni-opis" rows="5" style="text-align:left;">
+
+                            </textarea>
+                        </div>
+                        <div class="col-md-12 mb-2 d-flex justify-content-between">
+                            <label>Količina</label>
+                            <input class="col-md-8 product-izmeni-kolicina" type="number">
+                        </div>
+                        <hr>
+                        <p class="text-center">Komentari</p>
+                        <div class="col-md-12 mb-2 d-flex flex-column komentari-div">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sacuvaj-izmene-proizvod">Sačuvaj promene</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exampleModalBrisanje" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Da li ste sigurni da želite da obrišete proizvod?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body col-md-12 d-flex justify-content-around">
+                    <button type="button" class="btn btn-danger col-md-5 btn-potvrdi-brisanje-proizvoda">Obriši</button>
+                    <button type="button" class="btn btn-secondary col-md-5" data-bs-dismiss="modal">Odustani</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+
+    <div class="footer">
+
+    </div>
+
+    <script src="./js/index/dodajKategorije.js"></script>
+    <script src="./js/index/pretraga.js"></script>
+    <script src="./js/admin/admin.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

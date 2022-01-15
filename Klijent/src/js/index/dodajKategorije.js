@@ -23,9 +23,3 @@ function dodajNavLink(host, kategorija){
 }
 
 
-
-// const myUrl = new URL(document.location.href);
-// myUrl.searchParams.set("name", "Stefan");
-// console.log(myUrl)
-// console.log(myUrl.href)
-// console.log(myUrl.searchParams.get("name"))

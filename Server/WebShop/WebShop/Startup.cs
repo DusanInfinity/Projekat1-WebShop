@@ -39,7 +39,7 @@ namespace WebShop
                            .WithOrigins("https://localhost:5001",
                                         "http://127.0.0.1:8080",
                                         "http://localhost:5500",
-                                        "http://192.168.0.105:5500");
+                                        "http://192.168.0.105:5500").AllowAnyOrigin();
                 });
             });
         }

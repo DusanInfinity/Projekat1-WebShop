@@ -8,14 +8,14 @@
 
 .content-container-proizvod .content-container-proizvod-div{ 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-grow: 1;
 }
 
 .proizvod-profil{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .proizvod-profil img{
@@ -116,7 +116,7 @@
 
 
 
-.container .content-container-proizvod .content-container-slicni-proizvodi{
+.kontejner .content-container-proizvod .content-container-slicni-proizvodi{
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -126,7 +126,7 @@
 
 
 
-.container .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder{
+.kontejner .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -134,13 +134,13 @@
     height: 30px;
 }
 
-.container .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder .proizvodi-container-hearder-item{
+.kontejner .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder .proizvodi-container-hearder-item{
     height: 100%;
     min-width: 10px;
     background-color: rgb(223, 130, 130);
 }
 
-.container .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder .proizvodi-container-hearder-content{
+.kontejner .content-container-proizvod .content-container-slicni-proizvodi .proizvodi-container-hearder .proizvodi-container-hearder-content{
     display: flex;
     align-items: center;
     width: 100%;
@@ -153,7 +153,7 @@
 
 
 
-.container .content-container-proizvod .proizvodi-container-content{
+.kontejner .content-container-proizvod .proizvodi-container-content{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -168,7 +168,7 @@
 
 
 
-.container .content-container-proizvod .proizvodi-container-content .proizvod{
+.kontejner .content-container-proizvod .proizvodi-container-content .proizvod{
     flex-basis: 220px;
     flex-grow: 1;
     flex-shrink: 0;
@@ -185,28 +185,28 @@
 
 
 
-.container .content-container-proizvod .proizvodi-container-content .proizvod img{
+.kontejner .content-container-proizvod .proizvodi-container-content .proizvod img{
     width: 240px;
 }
 
-.container .content-container-proizvod .proizvodi-container-content .proizvod img :hover{
+.kontejner .content-container-proizvod .proizvodi-container-content .proizvod img :hover{
     cursor: pointer;
 }
 
-.container .content-container-proizvod .proizvodi-container-content .proizvod .ime-proizvod{
+.kontejner .content-container-proizvod .proizvodi-container-content .proizvod .ime-proizvod{
     font-size: 20px;
     text-align: center;
     color: rgb(7, 37, 102);
 }
 
 
-.container .content-container-proizvod .proizvodi-container-content .proizvod .cena-proizvod{
+.kontejner .content-container-proizvod .proizvodi-container-content .proizvod .cena-proizvod{
     font-size: 35px;
     color: rgb(224, 44, 44);
     text-align: center;
 }
 
-.container .content-container-proizvod .proizvodi-container-content .proizvod a{
+.kontejner .content-container-proizvod .proizvodi-container-content .proizvod a{
     width: 90%;
     font-size: 1.3rem;
     border-top: 1px solid black;
@@ -220,8 +220,156 @@
 
 
 
-.container .content-container-proizvod .proizvodi-container-content .proizvod a i{
+.kontejner .content-container-proizvod .proizvodi-container-content .proizvod a i{
     margin-right: 10px;
 }
 
 
+
+.comments-kontejner{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+.comments-kontejner .naslov-novi-kom-div{
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+
+.comments-kontejner .naslov-novi-kom-div .comments-naslov{
+    font-size: 20px;
+    color: rgb(48, 80, 150);
+    text-decoration: underline;
+}
+
+
+.comments-kontejner .naslov-novi-kom-div .btn-dodaj-komentar{
+    width: auto;
+    padding: 5px 10px;
+    color: white;
+    background-color: rgb(48, 80, 150);
+    height: 70%;
+    align-self: center;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+.comment-div{
+    margin: 10px 10px;
+    border-top: 1px solid rgb(190, 190, 190);
+    border-bottom: 1px solid rgb(190, 190, 190);
+    padding: 0 30px;
+}
+
+.comment-div .comment-name{
+    font-size: 14px;
+    color: gray;
+}
+
+
+.comment-div .comment-text{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+
+.novi-komentar-div{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.novi-komentar-div .ime-email-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+
+.novi-komentar-div .ime-email-div .novi-komentar-div-ime{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.novi-komentar-div .ime-email-div .novi-komentar-div-ime .novi-komentar-ime{
+    width: 300px;
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid gray;
+    color: #323232;
+    line-height: 20px;
+    outline: medium none;
+}
+
+
+
+.novi-komentar-div .ime-email-div .novi-komentar-div-email{
+    display: flex;
+    flex-direction: column;
+}
+
+.novi-komentar-div .ime-email-div .novi-komentar-div-email .novi-komentar-email{
+    width: 300px;
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid gray;
+    color: #323232;
+    line-height: 20px;
+    outline: medium none;
+}
+
+
+
+.novi-komentar-div .novi-komentar-div-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.novi-komentar-div .novi-komentar-div-text .novi-komentar-text{
+    height: 80px;
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid gray;
+    color: #323232;
+    line-height: 20px;
+    outline: medium none;
+    width: 100%;
+}
+
+
+.novi-komentar-buttons-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+
+.novi-komentar-buttons-div button{
+    font-size: 17px;
+    color: white;
+    border-radius: 4px;
+    padding: 0 10px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.novi-komentar-buttons-div .posalji-komentar-button{
+    background-color: rgb(75, 158, 75);
+}
+
+.novi-komentar-buttons-div .zatvori-komentar-button{
+    background-color: rgb(221, 124, 124);
+}

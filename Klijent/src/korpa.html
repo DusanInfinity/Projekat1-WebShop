@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebShop</title>
+    <link rel="stylesheet" href="/css/stil.css">
+    <link rel="stylesheet" href="/css/korpa.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet"> 
+
+</head>
+<body>
+    
+    <nav class="topbar">
+        <div class="logo">
+            WebShop
+        </div>
+        <div class="topnav-tools">
+
+            <div>
+                <a class="topnav-tool" href="admin.html">
+                    <i class="fa fa-user"></i>
+                    <span>Admin</span>
+                </a>
+            </div>
+            <div>    
+                <a class="topnav-tool" href="korpa.html">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>Korpa</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="search-mainnav-container">
+        <div class="search">
+            <input type="text" id="pretragaInput" placeholder="Pretraži sajt...">
+            <button class="button-search">
+                <i class="fa fa-search"></i>
+                Pretraži
+            </button>
+        </div>
+        
+        <div class="mainnav">
+            <ul>
+                <li>
+                    <a href="/">Početna stranica</a>
+                </li>
+                <li>
+                    <a href="/najnovijiproizvodi.html">Najnoviji</a>
+                </li>
+                <li>    
+                    <a href="/najprodavanijiproizvodi.html">Najprodavaniji</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="kontejner">
+        <nav class="sidenav">
+            <!-- <a class="nav-link" href="stranica.html">
+                Telefoni
+            </a> -->
+        </nav>
+
+        <div class="content-container">
+            <div class="proizvodi-container">
+                <div class="proizvodi-container-hearder">
+                    <div class="proizvodi-container-hearder-item"></div>
+                    <div class="proizvodi-container-hearder-content">
+                        Korpa
+                    </div>
+                </div>
+
+                <div class="korpa-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="1" class="a-center">Ukloni</th>
+                                <th class="a-center">Slika</th>
+                                <th rowspan="1" width="40%">Naziv Proizvoda</th>
+                                <th class="a-center">Cena</th>
+                                <th class="a-center">Količina</th>
+                                <th class="a-center">Međuzbir</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- <tr>
+                                <td class="a-center">
+                                    <a href="" style="color:#333; text-decoration: none;">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td  class="a-center">
+                                    <img src="./assets/slika.jpg" width="90">
+                                </td>
+                                <td>
+                                    <span>
+                                        Samsung galaxy S21
+                                    </span>
+                                </td>
+                                <td class="a-center">
+                                    <span class="price">12000 din</span>
+                                </td>
+                                <td class="a-center">
+                                    <div class="kolicina-input-div">
+                                        <input size="4" value="1" disabled class="kolicina-input">
+                                        <span class="buttons-span">
+                                            <button class="button-plus">+</button>
+                                            <button class="button-minus">-</button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="a-center">
+                                    <span class="price">12000 din</span>
+                                </td>
+                            </tr> -->
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="a-right">Ukupno</td>
+                                <td colspan="1" class="ukupna-cena-korpe price">0 RSD</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="a-right">Dostava</td>
+                                <td colspan="1" class="price">0 RSD</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="a-right">Ukupno za uplatu</td>
+                                <td colspan="1" class="ukupna-cena-za-uplatu-korpe price">0 RSD</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="porudzbina-buttons-div">
+                        <button class="btn-prikazi-formu-porudzbina">Poruči</button>
+                    </div>
+
+                    <div id="customer-data">
+                        <p>Podaci o kupcu</p>
+                        <hr>
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label>Ime</label>
+                                <input type="text" value="" id="customer-ime">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Prezime</label>
+                                <input type="text" value="" id="customer-prezime">
+                            </div>
+                        </div>
+
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label>Adresa</label>
+                                <input type="text" value="" id="customer-adresa">
+                            </div>
+                            <div class="form-group">
+                                <label>Broj telefona</label>
+                                <input type="text" value="" id="customer-telefon">
+                            </div>
+                        </div>
+
+                        <div class="posalji-porudzbinu-buttons-div">
+                            <button class="btn-posalji-porudzbinu">Pošalji porudžbinu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+
+    </div>
+
+    <script src="./js/index/dodajKategorije.js"></script>
+    <script src="./js/index/pretraga.js"></script>
+    <script src="./js/korpa/korpa.js" type="module"></script>
+</body>
+</html>
