@@ -7,11 +7,9 @@ let proizvodi = await api.produkti.vratiSveProdukte();
 let kontejner = document.querySelector(".proizvod-admin-container");
 
 proizvodi.forEach(p => {
-    let proizvod = new Proizvod(p.productCode, p.name, p.price, p.description, p.quantity, p.image);
+    let proizvod = new Proizvod(p.productCode, p.name, p.category, p.price, p.description, p.quantity, p.image);
     proizvod.drawSelfAdmin(kontejner);
 });
-
-
 
 
 
@@ -19,34 +17,43 @@ let dugme_dodaj_proizvod = document.querySelector(".btn-dodaj-proizvod");
 dugme_dodaj_proizvod.addEventListener("click", async () => {
     let id = document.querySelector(".product-id");
     let ime = document.querySelector(".product-ime");
+    let kategorija = document.querySelector(".product-kategorija");
     let cena = document.querySelector(".product-cena");
     let kolicina = document.querySelector(".product-kolicina");
+    let tags = document.querySelector(".product-tags");
     let opis = document.querySelector(".product-opis");
 
     if (id.value == ""){
         alert("Niste uneli id proizvoda.");
     }
-    if (ime.value == ""){
+    else if (ime.value == ""){
         alert("Niste uneli ime proizvoda.");
     }
-    if (cena.value == ""){
+    else if (kategorija.value == ""){
+        alert("Niste uneli kategoriju proizvoda.");
+    }
+    else if (cena.value == ""){
         alert("Niste uneli cenu proizvoda.");
     }
-    if (kolicina.value == ""){
+    else if (kolicina.value == ""){
         alert("Niste uneli kolicinu proizvoda.");
     }
-    if (opis.value == ""){
+    else if (tags.value == ""){
+        alert("Niste uneli tagove proizvoda.");
+    }
+    else if (opis.value == ""){
         alert("Niste uneli opis proizvoda.");
     }
 
     let novi_proizvod = {
         productCode: parseInt(id.value),
         name: ime.value,
+        category: kategorija.value,
         price: parseInt(cena.value),
         description: opis.value,
         quantity: parseInt(kolicina.value),
-        image: null,
-        tags: null,
+        image: "default.jpg",
+        tags: tags.value.split(" "),
         comments: null
     }
 
@@ -110,11 +117,10 @@ btn_izmeni_proizvod.addEventListener("click", async () => {
 let btn_potvrdi_brisanje = document.querySelector(".btn-potvrdi-brisanje-proizvoda");
 btn_potvrdi_brisanje.addEventListener("click", async () => {
     let id = sessionStorage.getItem("product_za_brisanje");
-    
+
     try{
         api.setHeader('Content-Type', 'application/json');
         await api.produkti.obrisiProdukt(parseInt(id));
-        alert(`Proizvod ${ime.value} je uspešno obrisan.`);
         window.location.reload();
     }
     catch(e){

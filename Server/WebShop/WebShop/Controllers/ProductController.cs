@@ -193,11 +193,12 @@ namespace WebShop.Controllers
             var products = new List<Product>();
 
             string userIP = GetUserIP().ToString();
+
+            Log.WriteLine(userIP);
             if (!_redis.ContainsKey($"visitor_{userIP}"))
                 return Ok(products);
-
             List<string> tags = _redis.GetAllItemsFromSet($"visitor_{userIP}").ToList();
-
+            Log.WriteLine(string.Join(" ", tags));
             try
             {
 

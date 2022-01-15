@@ -9,7 +9,7 @@ let kontejner = document.querySelector("tbody");
 
 dodati_proizvodi.forEach(async p => {
     let proizvod = await api.produkti.vratiPodatkeProdukta(p.id);
-    let proizvod_object = new Proizvod(proizvod.productCode, proizvod.name, proizvod.price, proizvod.description, proizvod.quantity, proizvod.image);
+    let proizvod_object = new Proizvod(proizvod.productCode, proizvod.name, proizvod.category, proizvod.price, proizvod.description, proizvod.quantity, proizvod.image);
     proizvod_object.drawSelfKorpa(kontejner, p.kolicina);
 });
 
@@ -66,13 +66,13 @@ btn_posalji_porudzbinu.addEventListener("click", async () => {
         },
         orderedProducts: ordered_products
     }
-    console.log(customer_order);
 
     try{
         api.setHeader('Content-Type', 'application/json');
         await api.shop.kupiProizvode(customer_order);
         alert("Kupovina je uspešno odrađena.");
         localStorage.setItem("proizvodi_korpa", "[]");
+        window.location.reload();
     }
     catch(e){
         alert(`Došlo je do greške prilikom izvršenja kupovine. ${e.message}`);

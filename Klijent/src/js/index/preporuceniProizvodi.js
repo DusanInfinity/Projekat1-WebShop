@@ -6,14 +6,14 @@ const api = new ApiClient();
 
 let kontejner = document.querySelector(".preporuceni-proizvodi");
 
-let preporuceniProizvodi = await api.produkti.vratiSveProdukte();
+let preporuceniProizvodi = await api.produkti.vratiPreporuceneProdukte();
 console.log(preporuceniProizvodi);
 
 
 if (kontejner != null){
     preporuceniProizvodi.forEach((el, index) => {
         if(index < 4){
-            let proizvod = new Proizvod(el.productCode, el.name, el.price, el.description, el.quantity, el.image);
+            let proizvod = new Proizvod(el.productCode, el.name, el.category, el.price, el.description, el.quantity, el.image);
             proizvod.drawSelf(kontejner);
         }
     });

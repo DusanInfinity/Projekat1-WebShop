@@ -1,7 +1,8 @@
 
 
 let sidenav = document.querySelector(".sidenav");
-let kategorije = ["Telefoni", "Monitori", "Komponente", "Bela tehnika", "Proba"];
+
+let kategorije = ["Telefoni", "TV", "Monitori", "Računari", "Oprema za računare"];
 kategorije.forEach(el => {
     dodajNavLink(sidenav, el);
 });

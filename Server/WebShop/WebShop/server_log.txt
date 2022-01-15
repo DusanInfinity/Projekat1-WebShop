@@ -14,3 +14,10 @@
 [15/01/2022 20:12:29.733] | INFO | [Brisanje komentara] 1 qwe 1/15/2022 7:11:54 PM
 [15/01/2022 20:12:30.830] | INFO | [Brisanje komentara] 1 asd 1/15/2022 7:11:44 PM
 [15/01/2022 20:13:34.116] | INFO | [Brisanje komentara] 5 Proba Ime 1/15/2022 6:28:43 PM
+[15/01/2022 23:12:11.354] | INFO | 127.0.0.1
+[15/01/2022 23:12:11.372] | INFO | asd asd JBL tv asdasd asdasd asdasd S21 asd proba Telefoni samsung Ultra sadasd
+[15/01/2022 23:14:30.690] | INFO | 127.0.0.1
+[15/01/2022 23:14:30.691] | INFO | asd asd JBL tv asdasd asdasd asdasd string S21 asd proba Telefoni samsung Ultra sadasd
+[15/01/2022 23:20:24.730] | INFO | 127.0.0.1
+[15/01/2022 23:20:24.730] | INFO | asd asd JBL tv asdasd asdasd asdasd string S21 asd proba Telefoni samsung Ultra telefon sadasd
+[15/01/2022 23:21:19.580] | INFO | [Brisanje komentara] 30 Stefan 1/15/2022 10:21:02 PM

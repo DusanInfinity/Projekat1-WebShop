@@ -17,7 +17,7 @@ let kontejner = document.querySelector(".najnoviji-proizvodi");
 
 if (kontejner != null){
     najnovijiProizvodi.forEach(el => {
-        let proizvod = new Proizvod(el.productCode, el.name, el.price, el.description, el.quantity, el.image);
+        let proizvod = new Proizvod(el.productCode, el.name, el.category, el.price, el.description, el.quantity, el.image);
         proizvod.drawSelf(kontejner);
     });
 }

@@ -2,9 +2,10 @@ import ApiClient from "./global/apiClient.js";
 const api = new ApiClient();
 
 export class Proizvod {
-    constructor(id, name, price, description, quantity, image) {
+    constructor(id, name, category, price, description, quantity, image) {
         this.id = id;
         this.name = name;
+        this.category = category;
         this.price = price;
         this.description = description;
         this.quantity = quantity;

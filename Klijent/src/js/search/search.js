@@ -36,7 +36,7 @@ function prikaziProizvode() {
         
         let kontejner = document.querySelector(".proizvodi-container-content");
         lista_proizvoda.forEach(el => {
-            let proizvod = new Proizvod(el.productCode, el.name, el.price, el.description, el.quantity, el.image);
+            let proizvod = new Proizvod(el.productCode, el.name, el.category, el.price, el.description, el.quantity, el.image);
             proizvod.drawSelf(kontejner);
         });
     }
@@ -125,7 +125,7 @@ function prikaziProizvode() {
         if (kontejner != null) {
             preporuceniProizvodi.forEach((el, index) => {
                 if (index < 5) {
-                    let proizvod = new Proizvod(el.id, el.name, el.price, el.description, el.quantity, el.image);
+                    let proizvod = new Proizvod(el.id, el.name, el.category, el.price, el.description, el.quantity, el.image);
                     proizvod.drawSelf(div_proizvodi_container_content);
                 }
             });
